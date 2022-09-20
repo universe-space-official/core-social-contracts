@@ -48,7 +48,7 @@ contract Universe is Ownable, AccessControl {
 
         //Defining role fullAccess role  for this project Id
         newProject.FULL_ACCESS_ROLE = keccak256(
-            abi.encodePacked("READ_ONLY_ACCESS_ROLE", toString(projectId))
+            abi.encodePacked("FULL_ACCESS_ROLE", toString(projectId))
         );
 
         //Starting addresses that can access/modify the project
