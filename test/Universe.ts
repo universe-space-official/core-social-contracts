@@ -1,4 +1,4 @@
-import { Provider } from "@ethersproject/providers";
+import { Provider } from "@ethersProfile/providers";
 import { expect } from "chai";
 import { Signer } from "ethers";
 import { ethers } from "hardhat";
@@ -45,11 +45,11 @@ describe("Universe Tests", function () {
       expect(universeContract).not.to.be.reverted;
     });
 
-    it("Should create a new project", async function () {
+    it("Should create a new profile", async function () {
 
-      const tx1 = await universeContract.createProject([], []);
+      const tx1 = await universeContract.createProfile([], [], "Perfil1", false);
       await tx1.wait();
-      expect(await universeContract.projectIdCounter()).to.equal(1);
+      expect(await universeContract.profileIdCounter()).to.equal(2);
 
 
 
@@ -57,25 +57,35 @@ describe("Universe Tests", function () {
 
     it("Should be able to add user to fullaccess role", async function () {
 
-      const tx1 = await universeContract.addFullAccessUser(0, [user2.address]);
+      const tx1 = await universeContract.addFullAccessUser(1, [user2.address]);
       await tx1.wait();
 
 
     });
 
     it("User without fullaccess role should not be able to give access", async function () {
-      await expect(universeContract.connect(user3.signer).addFullAccessUser(0, [user3.address])).to.be.reverted;
+      await expect(universeContract.connect(user3.signer).addFullAccessUser(1, [user3.address])).to.be.reverted;
 
 
     });
 
-    it("User with access in project 0 should not have access in project 1", async function () {
+    it("User with access in profile 0 should not have access in profile 1", async function () {
 
-      const tx1 = await universeContract.createProject([user3.address], [user4.address, user5.address]);
+      const tx1 = await universeContract.createProfile([user3.address], [user4.address, user5.address], "Perfil2", false);
       await tx1.wait();
-      await expect(universeContract.connect(user2.signer).addFullAccessUser(1, [user3.address])).to.be.reverted;
 
-      await expect(universeContract.connect(user2.signer).addFullAccessUser(0, [user3.address])).not.to.be.reverted;
+      await expect(universeContract.connect(user2.signer).addFullAccessUser(1, [user3.address])).not.to.be.reverted;
+
+      await expect(universeContract.connect(user2.signer).addFullAccessUser(2, [user3.address])).to.be.reverted;
+
+
+    });
+
+    it("Should revert when trying to create user with same handle", async function () {
+
+
+      await expect(universeContract.createProfile([user3.address], [user4.address, user5.address], "Perfil1", false)).to.be.reverted;
+
 
     });
   });
