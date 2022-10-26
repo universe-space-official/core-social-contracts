@@ -17,7 +17,7 @@ require_automerge_label = true
 blacklist_title_regex = "^WIP.*" # default: "^WIP:.*", options: "" (disables regex), a regex string (e.g. ".*DONT\s*MERGE.*")
 
 # if these labels are set Kodiak will not merge the PR
-blacklist_labels = [":construction: work in progress", ":link: depends on another PR", ":stop_sign: do not merge"] # default: [], options: list of label names (e.g. ["wip"])
+blacklist_labels = ["work in progress", "depends on another PR", "do not merge"] # default: [], options: list of label names (e.g. ["wip"])
 
 # choose a merge method. If the configured merge method is disabled for a
 # repository, Kodiak will report an error in a status message.
