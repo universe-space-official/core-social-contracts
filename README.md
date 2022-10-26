@@ -1,3 +1,3 @@
-# universe-social-contracts
+# Social contracts
 
-Solidity Contracts created to test and define project and profile information
+Solidity Contracts is the repository used to keep the user information and also the .verse NFT
